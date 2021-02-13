@@ -1,4 +1,5 @@
 #!/bin/bash/
+#by vignesh
 
 trap 'printf "\n";stop;exit 1' 2
 clear
